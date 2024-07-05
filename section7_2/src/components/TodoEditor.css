@@ -1,0 +1,25 @@
+.TodoEditor {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.TodoEditor > input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #a1a1a1;
+  border-radius: 5px;
+}
+
+.TodoEditor > input:focus {
+  outline: none;
+}
+
+.TodoEditor > button {
+  width: 80px;
+  border-radius: 5px;
+  border: none;
+  background-color: orange;
+  color: white;
+  cursor: pointer;
+}

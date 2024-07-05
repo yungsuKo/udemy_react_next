@@ -1,0 +1,7 @@
+/* Import the Pretendard font */
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap');
+
+/* Set the Pretendard font as the default font for the entire document */
+body {
+  font-family: 'Pretendard', sans-serif;
+}

@@ -1,0 +1,16 @@
+.Searchbar {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.Searchbar > input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #a1a1a1;
+  padding: 15px 0;
+}
+
+.Searchbar > input:focus {
+  outline: none;
+  border-bottom: 1px solid orange;
+}
