@@ -4,6 +4,7 @@ import Header from './components/Header';
 import TodoEditor from './components/TodoEditor';
 import TodoList from './components/TodoList';
 import { useRef } from 'react';
+import { useReducer } from 'react';
 
 const mockData = [
   {
@@ -26,8 +27,25 @@ const mockData = [
   },
 ];
 
+function reducer(state, action) {
+  switch (action.type) {
+    case 'CREATE': {
+      return [...state, action.data];
+    }
+    case 'UPDATE': {
+      return state.map((todo) => {
+        if (todo.id == action.data) return { ...todo, isDone: !todo.isDone };
+        return todo;
+      });
+    }
+    case 'DELETE': {
+      return state.filter((todo) => todo.id !== action.data);
+    }
+  }
+}
+
 function App() {
-  const [todos, setTodos] = useState(mockData);
+  const [todos, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(3);
 
   const onCreate = (content) => {
@@ -37,20 +55,31 @@ function App() {
       content,
       createDt: new Date().getTime(),
     };
-    setTodos([...todos, newTodo]);
+    dispatch({
+      type: 'CREATE',
+      data: newTodo,
+    });
   };
 
   const onUpdate = (targetId) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id == targetId) return { ...todo, isDone: !todo.isDone };
-        return todo;
-      })
-    );
+    // setTodos(
+    // todos.map((todo) => {
+    //   if (todo.id == targetId) return { ...todo, isDone: !todo.isDone };
+    //   return todo;
+    // })
+    // );
+    dispatch({
+      type: 'UPDATE',
+      data: targetId,
+    });
   };
 
   const onDelete = (targetId) => {
-    setTodos(todos.filter((todo) => todo.id !== targetId));
+    // setTodos(todos.filter((todo) => todo.id !== targetId));
+    dispatch({
+      type: 'DELETE',
+      data: targetId,
+    });
   };
 
   return (
