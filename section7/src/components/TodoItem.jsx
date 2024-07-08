@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import './TodoItem.css';
 import PropTypes from 'prop-types';
 
-export default function TodoItem({ todo, onUpdate, onDelete }) {
+function TodoItem({ todo, onUpdate, onDelete }) {
   function getFormatDate(date) {
     var year = date.getFullYear(); //yyyy
     var month = 1 + date.getMonth(); //M
@@ -27,6 +28,8 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
     </div>
   );
 }
+
+export default memo(TodoItem);
 
 TodoItem.propTypes = {
   todo: PropTypes.object.isRequired,

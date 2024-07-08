@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useMemo, useContext } from 'react';
 import TodoItem from './TodoItem';
 import './TodoList.css';
 import PropTypes from 'prop-types';
 
-export default function TodoList({ todos, onUpdate, onDelete }) {
+import { TodoStateContext } from '../TodoStateContext';
+import { TodoDispatchContext } from '../TodoDispatchContext';
+
+export default function TodoList() {
+  const { onDelete, onUpdate } = useContext(TodoDispatchContext);
+  const { todos } = useContext(TodoStateContext);
   const [search, setSearch] = useState('');
   const onSearchChange = (e) => {
     setSearch(e.target.value);
@@ -15,6 +20,13 @@ export default function TodoList({ todos, onUpdate, onDelete }) {
     );
   };
 
+  const { totalCount, doneCount, noDoneCount } = useMemo(() => {
+    const totalCount = todos.length;
+    const doneCount = todos.filter((todo) => todo.isDone).length;
+    const noDoneCount = totalCount - doneCount;
+    return { totalCount, doneCount, noDoneCount };
+  }, [todos]);
+
   return (
     <div className="TodoList">
       <h4>Todos</h4>
@@ -23,6 +35,10 @@ export default function TodoList({ todos, onUpdate, onDelete }) {
         value={search}
         onChange={onSearchChange}
       />
+      <div>전체 투두 : {totalCount}</div>
+      <div>완료 투두 : {doneCount}</div>
+      <div>미완 투두 : {noDoneCount}</div>
+
       <div className="TodoWrapper">
         {todoFilter().map((todo) => {
           return (

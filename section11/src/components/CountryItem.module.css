@@ -1,0 +1,18 @@
+.container {
+  width: 220px;
+  background-color: white;
+}
+.flag_img {
+  width: 100%;
+}
+
+.content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.name {
+  font-size: 18px;
+  margin: 10px 0px;
+}
