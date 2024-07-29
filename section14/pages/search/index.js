@@ -1,5 +1,8 @@
 import { fetchCountries, fetchSearchResults } from '@/api';
+import CountryList from '@/components/CountryList';
+import SearchBar from '@/components/SearchBar';
 import SubLayout from '@/components/SubLayout';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -9,7 +12,8 @@ export default function Search() {
   const [countries, setCountries] = useState([]);
 
   const setData = async () => {
-    const data = fetchSearchResults(q);
+    const data = await fetchSearchResults(q);
+
     setCountries(data);
   };
 
@@ -20,12 +24,16 @@ export default function Search() {
   }, [q]);
 
   return (
-    <div>
-      Seach page
-      {countries.map((country) => {
-        return <div key={country.code}>{country.commonName}</div>;
-      })}
-    </div>
+    <>
+      <Head>
+        <title>NARAS 검색결과</title>
+        <meta property="og:image" content="/thumbnail.png" />
+        <meta property="og:title" content="NARAS" />
+        <meta property="og:description" content="나라 정보" />
+      </Head>
+      <SearchBar q={q} />
+      <CountryList countries={countries} />
+    </>
   );
 }
 

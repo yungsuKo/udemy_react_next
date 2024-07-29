@@ -1,5 +1,8 @@
 import { fetchCountries, fetchCoutry } from '@/api';
+import CountryList from '@/components/CountryList';
+import SearchBar from '@/components/SearchBar';
 import Button from '@/components/test/Button';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -10,12 +13,16 @@ export default function Home({ countries }) {
     router.push('/search');
   };
   return (
-    <div>
-      {/* <Button text={'클릭'} bgColor={'black'} textColor={'white'} /> */}
-      {countries.map((country) => (
-        <div key={country.code}>{country.commonName}</div>
-      ))}
-    </div>
+    <>
+      <Head>
+        <title>NARAS</title>
+        <meta property="og:image" content="/thumbnail.png" />
+        <meta property="og:title" content="NARAS" />
+        <meta property="og:description" content="나라 정보" />
+      </Head>
+      <SearchBar />
+      <CountryList countries={countries} />
+    </>
   );
 }
 
